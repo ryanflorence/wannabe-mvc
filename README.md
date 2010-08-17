@@ -39,4 +39,8 @@ __Install it__
 
     $ php wannabe-mvc/install
 
+__Configure__
+
+1. Open `config/database.yml` and point it to a database (may have to create it first)
+2. Point your web server to `public`
 
