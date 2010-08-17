@@ -45,7 +45,7 @@ class Migration {
 	
 	
 	protected static function get_type($type){
-		return (self::$types[$col]) ? self::$types[$col] : $col;
+		return (self::$types[$type]) ? self::$types[$type] : $type;
 	}
 	
 	protected static function get_columns($columns){
