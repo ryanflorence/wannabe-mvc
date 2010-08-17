@@ -79,3 +79,4 @@ Rollback takes a number of migrations to roll back, it defaults to 1.
 
     $ php script/database rollback
     $ php script/database rollback 2
+
