@@ -10,11 +10,7 @@ class Migration {
 	);
 
 	public static function create_table($table, $columns){
-		foreach($columns as $key => $col) {
-			$col_type = (self::$types[$col]) ? self::$types[$col] : $col;
-			$columns[$key] = "`$key` $col_type DEFAULT NULL";
-		}
-		$columns = implode(", \n	", $columns);
+		$columns = self::get_columns($columns);
 		$sql = "CREATE TABLE `$table` (`id` int(11) NOT NULL AUTO_INCREMENT, $columns, `active` int(1) DEFAULT 1, `created_at` datetime DEFAULT NULL, `updated_at` datetime DEFAULT NULL, PRIMARY KEY (`id`) ) ENGINE=MyISAM DEFAULT CHARSET=latin1;";
 		return (DatabaseTransaction::run_query($sql)) ? "Created table : $table\n": false;
 	}
@@ -32,16 +28,32 @@ class Migration {
 		return "Pretend like you changed a table\n";
 	}                                  
 	                                   
-	public static function add_column($column){
-		return "Pretend like you added a column\n";
+	public static function add_column($table, $column, $type){
+		$type = self::get_type($type);
+		$sql = "ALTER TABLE `$table` ADD `$column` $type";
+		return (DatabaseTransaction::run_query($sql)) ? "Added column `$column` to $table\n": false;
 	}
 	
-	public static function remove_column($column){
-		return "Pretend like you removed a column\n";
+	public static function remove_column($table, $column){
+		$sql = "ALTER TABLE `$table` DROP `$column`";
+		return (DatabaseTransaction::run_query($sql)) ? "Dropped column `$column` from $table\n": false;
 	}
 	                                   
 	public static function change_column($colum){
 		return "Pretend like you changed a column\n";
+	}
+	
+	
+	public static function get_type($type){
+		return (self::$types[$col]) ? self::$types[$col] : $col;
+	}
+	
+	public static function get_columns($columns){
+		foreach($columns as $key => $col) {
+			$col_type = self::get_type($col);
+			$columns[$key] = "`$key` $col_type DEFAULT NULL";
+		}
+		return implode(", \n	", $columns);
 	}
 	
 	
