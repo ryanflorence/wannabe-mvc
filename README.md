@@ -37,6 +37,6 @@ __Clone the wannabe mvc framework__
 
 __Install it__
 
-    $ php framework/install
+    $ php wannabe-mvc/install
 
 
