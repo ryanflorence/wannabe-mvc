@@ -1,7 +1,7 @@
 <?php echo "<?php" ?> include 'app/views/layouts/_header.php' ?>
 	
 	<h2>Listing Deleted <?php echo $humanized_plural ?></h2>
-	<p>Go to active <?php echo "<?php" ?> link_to('<?php echo $humanized_plural ?>', index_path('<?php echo $plural ?>')) ?></p>
+	<p class="actions">Go to active <?php echo "<?php" ?> link_to('<?php echo $humanized_plural ?>', index_path('<?php echo $plural ?>')) ?></p>
 	<table>
 		<thead>
 			<tr>

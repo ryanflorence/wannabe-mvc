@@ -8,9 +8,11 @@
 	</p>
 <?php echo "<?php" ?> } ?>
 
-[ <a href="<?php echo "<?php" ?> echo $_SERVER['HTTP_REFERER'] ?>">« Back</a> | 
-<?php echo "<?php" ?> link_to('Index', index_path('<?php echo $plural ?>')); ?> |
-<?php echo "<?php" ?> link_to('Edit', edit_path($this-><?php echo $singular ?>)); ?> ]
-&nbsp; &nbsp; [ <?php echo "<?php" ?> link_to('Delete', delete_path($this-><?php echo $singular ?>)); ?> ]
+<p class="actions">
+	[ <a href="<?php echo "<?php" ?> echo $_SERVER['HTTP_REFERER'] ?>">« Back</a> | 
+	<?php echo "<?php" ?> link_to('Index', index_path('<?php echo $plural ?>')); ?> |
+	<?php echo "<?php" ?> link_to('Edit', edit_path($this-><?php echo $singular ?>)); ?> ]
+	&nbsp; &nbsp; [ <?php echo "<?php" ?> link_to('Delete', delete_path($this-><?php echo $singular ?>)); ?> ]
+</p>
 
 <?php echo "<?php" ?> include 'app/views/layouts/_footer.php' ?>

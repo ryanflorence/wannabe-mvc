@@ -1,7 +1,7 @@
 <?php echo "<?php" ?> include 'app/views/layouts/_header.php' ?>
 	
 	<h2>Listing <?php echo $humanized_plural ?></h2>
-	<p>
+	<p class="actions">
 		<?php echo "<?php" ?> link_to('Add New <?php echo $singular ?>', add_path('<?php echo $plural ?>')) ?>
 		<?php echo "<?php" ?> link_to('Deleted <?php echo $humanized_plural ?>', deleted_path('<?php echo $plural ?>')) ?>
 	</p>
