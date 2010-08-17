@@ -18,7 +18,8 @@
 				<td><?php echo "<?php" ?> echo_html(substr($field['value'], 0, 50)); ?></td>
 				<?php echo "<?php" ?> } } ?>
 				<td class="actions">
-					[ <?php echo "<?php" ?> link_to('Restore', restore_path($<?php echo $singular ?>)) ?> ]
+					[ <?php echo "<?php" ?> link_to('Restore', restore_path($<?php echo $singular ?>)) ?> | 
+					[ <?php echo "<?php" ?> link_to('Destroy', destroy_path($<?php echo $singular ?>)) ?> ]
 				</td>
 			</tr>
 			<?php echo "<?php" ?> } ?>

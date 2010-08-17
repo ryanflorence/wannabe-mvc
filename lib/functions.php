@@ -1,4 +1,5 @@
 <?php
+
 function template($template, $args) {
 	extract($args);
 	ob_start();

@@ -9,7 +9,7 @@ $count      = 0;
 
 if ($how_many > $total) $how_many = $total;
 
-if (!$total){
+if (!$total || $version < 1){
 	echo "Nothing to roll back\n";
 	exit;
 } 

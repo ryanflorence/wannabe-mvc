@@ -47,19 +47,19 @@ class <?php echo $model_plural; ?>Controller extends ControllerBase {
 	function delete(){
 		$<?php echo $singular ?> = <?php echo $model_singular ?>::find($_GET['id']);
 		if ($<?php echo $singular ?>->delete()) flash('notice', '<?php echo $humanized_singular ?> successfully hidden, find it ' . link_to('here', deleted_path('<?php echo $plural ?>'), false) . '.');
-		$this->redirect_to('index');
+		$this->redirect_to(index_path('<?php echo $plural ?>'));
 	}
 	
 	function restore(){
 		$<?php echo $singular ?> = <?php echo $model_singular ?>::find($_GET['id']);
 		if ($<?php echo $singular ?>->restore()) flash('notice', '<?php echo $humanized_singular ?> successfully restored');
-		$this->redirect_to('deleted');
+		$this->redirect_to(deleted_path('<?php echo $plural ?>'));
 	}
 
 	function destroy(){
 		$<?php echo $singular ?> = <?php echo $model_singular ?>::find($_GET['id']);
 		if ($<?php echo $singular ?>->destroy()) flash('notice', '<?php echo $humanized_singular ?> successfully destroyed');
-		$this->redirect_to('index');
+		$this->redirect_to(deleted_path('<?php echo $plural ?>'));
 	}
 	
 }

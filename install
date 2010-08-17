@@ -25,6 +25,7 @@ $files = array(
 	"config/environments/production.php",
 	"public/index.php",
 	"public/css/scaffold.css",
+	"public/.htaccess",
 	"script/database",
 	"script/generate",
 	"app/helpers/application_helper.php"

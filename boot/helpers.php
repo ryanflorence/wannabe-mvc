@@ -8,15 +8,14 @@ function link_to($text, $href, $echo = true){
 	return $str;
 }
 
-function get_path($controller, $action, $id = false){
-	$str = "/?controller=$controller&action=$action";
-	if ($id) $str .= "&id=$id";
-	return $str;
-}
-
 function add_path($model){
 	// send string reprenting plural model name
 	return get_path($model, 'add');
+}
+
+function create_path($model){
+	// send string reprenting plural model name
+	return get_path($model, 'create');
 }
 
 function index_path($model){
@@ -37,6 +36,10 @@ function show_path($model){
 function edit_path($model){
 	// send an instance of the model
 	return get_path($model->table, 'edit', $model->id);
+}
+
+function update_path($model){
+	return get_path($model->table, 'update', $model->id);
 }
 
 function delete_path($model){
@@ -81,6 +84,21 @@ function form_field_for($model, $key, $data){
 	}
 }
 
+function echo_html($str){
+	echo htmlspecialchars($str);
+}
+
+function all_controllers(){
+	$dir = "app/controllers/";
+	$dh = opendir($dir) ;
+	$controllers = array();
+	while (($file = readdir($dh)) !== false){
+		if (filetype($dir . $file) == 'file') $controllers[] = Inflector::classify(str_replace('.php','',$file));
+	}
+	closedir($dh);
+	return $controllers;
+}
+
 function rand_alphanumeric() {
 	$subsets[0] = array('min' => 48, 'max' => 57); 
 	$subsets[1] = array('min' => 65, 'max' => 90);
@@ -115,19 +133,4 @@ function flash($type, $message=null){
 
 function check_flash($type){
 	return (isset($_SESSION[$type])) ? $_SESSION[$type] != '' : false;
-}
-
-function echo_html($str){
-	echo htmlspecialchars($str);
-}
-
-function all_controllers(){
-	$dir = "app/controllers/";
-	$dh = opendir($dir) ;
-	$controllers = array();
-	while (($file = readdir($dh)) !== false){
-		if (filetype($dir . $file) == 'file') $controllers[] = Inflector::classify(str_replace('.php','',$file));
-	}
-	closedir($dh);
-	return $controllers;
 }

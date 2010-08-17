@@ -24,10 +24,9 @@ class ControllerBase {
 		require_once("app/views/$this->controller_name/$this->action_name.php");
 	}
 	
-	public function redirect_to($action){
-		header((is_object($action)) ?
-			"location: /?controller=$action->table&action=show&id=$action->id" :
-			"location: /?controller=$this->controller_name&action=$action");
+	public function redirect_to($path){
+		if (is_object($path)) $path = show_path($path);
+		header("location: $path");
 	}
 	
 	public function redirect_back_or_default($default){
