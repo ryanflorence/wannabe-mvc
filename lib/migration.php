@@ -44,11 +44,11 @@ class Migration {
 	}
 	
 	
-	public static function get_type($type){
+	protected static function get_type($type){
 		return (self::$types[$col]) ? self::$types[$col] : $col;
 	}
 	
-	public static function get_columns($columns){
+	protected static function get_columns($columns){
 		foreach($columns as $key => $col) {
 			$col_type = self::get_type($col);
 			$columns[$key] = "`$key` $col_type DEFAULT NULL";
