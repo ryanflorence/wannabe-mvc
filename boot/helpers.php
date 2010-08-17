@@ -64,7 +64,7 @@ function destroy_path($model){
 // other junk
 
 function form_field_for($model, $key, $data){
-	$text     = array('int(8)', 'varchar(255)', 'timestamp');
+	$text     = array('int(11)', 'varchar(255)', 'timestamp');
 	$textarea = array('tinytext', 'text');
 	$hidden   = array('id');
 	$bool     = array('int(1)');

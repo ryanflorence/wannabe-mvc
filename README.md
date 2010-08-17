@@ -47,7 +47,10 @@ __Configure__
 2. Point your web server to `public`
 
 Usage
------
+=====
+
+Command Line Interface
+----------------------
 
 ### Generators:
 
@@ -66,12 +69,11 @@ __migration__
     $ php script/generate migration [migration_name]
     $ php script/generate migration add_email_to_authors
 
-### Migrate / Rollback:
+### Migrate / Rollback Database:
 
 __migrate__
 
     $ php script/database migrate
-    $ php script/database rollback [how many: optional, default 1]
 
 __rollback__
 
