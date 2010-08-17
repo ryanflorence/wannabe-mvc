@@ -44,3 +44,37 @@ __Configure__
 1. Open `config/database.yml` and point it to a database (may have to create it first)
 2. Point your web server to `public`
 
+Usage
+-----
+
+### Generators:
+
+__scaffold__
+
+    $ php script/generate scaffold [model] [column]:[type] [column2]:[type]
+    $ php script/generate scaffold article title:string body:text
+
+__controller__
+
+    $ php script/generate controller [controller_name] [action] [action2]
+    $ php script/generate controller home index about contact
+
+__migration__
+
+    $ php script/generate migration [migration_name]
+    $ php script/generate migration add_email_to_authors
+
+### Migrate / Rollback:
+
+__migrate__
+
+    $ php script/database migrate
+    $ php script/database rollback [how many: optional, default 1]
+
+__rollback__
+
+Rollback takes a number of migrations to roll back, it defaults to 1.
+
+    $ php script/database rollback
+    $ php script/database rollback 2
+
