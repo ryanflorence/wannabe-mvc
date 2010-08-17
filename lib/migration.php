@@ -53,7 +53,7 @@ class Migration {
 			$col_type = self::get_type($col);
 			$columns[$key] = "`$key` $col_type DEFAULT NULL";
 		}
-		return implode(", \n	", $columns);
+		return implode(", ", $columns);
 	}
 	
 	
