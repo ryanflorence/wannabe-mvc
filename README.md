@@ -33,7 +33,7 @@ __Create your application directory:__
 
 __Clone the wannabe mvc framework__
 
-    $ git clone git@github.com/rpflorence/wannabe-mvc.git
+    $ git clone git@github.com:rpflorence/wannabe-mvc.git
 
 __Install it__
 
