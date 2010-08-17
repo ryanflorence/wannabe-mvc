@@ -46,7 +46,7 @@ class <?php echo $model_plural; ?>Controller extends ControllerBase {
 	
 	function delete(){
 		$<?php echo $singular ?> = <?php echo $model_singular ?>::find($_GET['id']);
-		if ($<?php echo $singular ?>->delete()) flash('notice', '<?php echo $humanized_singular ?> successfully hidden, find it ' . link_to('here', deleted_path('<?php echo $plural ?>'), false) . '.');
+		if ($<?php echo $singular ?>->delete()) flash('notice', '<?php echo $humanized_singular ?> successfully hidden');
 		$this->redirect_to(index_path('<?php echo $plural ?>'));
 	}
 	

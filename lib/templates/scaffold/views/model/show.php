@@ -12,7 +12,7 @@
 	[ <a href="<?php echo "<?php" ?> echo $_SERVER['HTTP_REFERER'] ?>">« Back</a> | 
 	<?php echo "<?php" ?> link_to('Index', index_path('<?php echo $plural ?>')); ?> |
 	<?php echo "<?php" ?> link_to('Edit', edit_path($this-><?php echo $singular ?>)); ?> ]
-	&nbsp; &nbsp; [ <?php echo "<?php" ?> link_to('Delete', delete_path($this-><?php echo $singular ?>)); ?> ]
+	&nbsp; &nbsp; [ <?php echo "<?php" ?> ($this-><?php echo $singular ?>->active == '1') ? link_to('Delete', delete_path($this-><?php echo $singular ?>)) : link_to('Destroy', destroy_path($this-><?php echo $singular ?>), array('class' => 'destroy')); ?> ]
 </p>
 
 <?php echo "<?php" ?> include 'app/views/layouts/_footer.php' ?>

@@ -2,8 +2,12 @@
 
 // links and stuff
 
-function link_to($text, $href, $echo = true){
-	$str = '<a href="' . $href .'">'.$text.'</a>';
+function link_to($text, $href, $attrs = '', $echo = true){
+	$attr_str = '';
+	if ($attrs) {
+		foreach($attrs as $k=>$v) $attr_str .= " $k=\"$v\"";
+	}
+	$str = "<a href=\"$href\"$attr_str>$text</a>";
 	if ($echo) echo $str;
 	return $str;
 }

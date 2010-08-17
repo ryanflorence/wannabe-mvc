@@ -91,7 +91,7 @@ th{background:#f0f0f0;}
 .actions a:visited{color :#105cb6;}
 .actions a:hover,
 .header a:hover{color :#a8a8a8;}
-td.actions{width:175px;}
+td.actions{min-width:175px;}
 .nav{text-align:right;background:#eee;line-height:2em;border-bottom:solid 1px;border-top:solid 1px;margin-bottom:2em;}
 .nav a{padding:0 8pt;color:#000;text-decoration:none;}
 .nav a:hover{text-decoration:underline;}
