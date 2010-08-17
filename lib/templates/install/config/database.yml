@@ -1,0 +1,14 @@
+development:
+  host: 127.0.0.1
+  database: development_db
+  user: root
+  pass: root
+  port: 3306
+
+production:
+  host: 127.0.0.1
+  database: production
+  user: production
+  pass: production
+  port: 3306
+

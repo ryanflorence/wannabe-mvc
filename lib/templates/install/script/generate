@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+// $ php script/generate migration name_of_migration
+// $ php script/generate controller name_of_controller action1 action2 action3
+// $ php script/generate scaffold single_name_of_model field:type body:text title:string
+
+chdir(dirname(__file__)); chdir('..');
+require_once('framework/boot/boot.php');
+require_once('framework/lib/functions.php');
+
+array_shift($argv);
+require ('framework/generators/' . array_shift($argv) . '.php');

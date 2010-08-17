@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+// $ php script/db migrate
+// $ php script/db rollback
+
+chdir(dirname(__file__)); chdir('..');
+
+require_once('framework/boot/boot.php');
+require_once('framework/lib/functions.php');
+$action = $argv[1];
+require_once ('framework/db/' . $action . '.php');
+require_once('framework/generators/schema.php');

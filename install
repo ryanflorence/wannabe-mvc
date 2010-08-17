@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+
+chdir(dirname(__file__)); chdir('..');
+
+if(rename('wannabe-mvc', 'framework')) echo "# Renamed wannabe-mvc to framework\n";
+
+echo "===> Creating directories\n";
+$dirs = array(
+	'app', 'app/controllers', 'app/helpers', 'app/models', 'app/views',
+	'config', 'config/environments',
+	'db', 'db/migrate',
+	'lib',
+	'public', 'public/css', 'public/javascripts', 'public/images',
+	'script'
+);
+
+foreach($dirs as $dir) if (!is_dir($dir) && mkdir($dir)) echo "# created: $dir\n";
+
+echo "===> Creating files\n";
+$files = array(                                                         
+	"config/database.yml",
+	"config/environment.php",
+	"config/environments/development.php",
+	"config/environments/production.php",
+	"public/index.php",
+	"public/css/scaffold.css",
+	"script/database",
+	"script/generate",
+	"app/helpers/application_helper.php"
+);
+
+$src = 'framework/lib/templates/install';
+foreach($files as $file) if(file_put_contents($file, file_get_contents("$src/$file"))) echo "# created: $file\n";
+
+echo "\n\n";
+echo "===> Instructions:\n";
+echo "\n";
+echo "     Configuration:\n";
+echo "       Open config/database.yml and put in the right information\n";
+echo "\n";
+echo "     Generators:\n";
+echo "       scaffold\n";
+echo "         $ php script/generate scaffold [model] [column]:[type] [column2]:[type]\n";
+echo "         $ php script/generate scaffold article title:string body:text\n";
+echo "       controller\n";
+echo "         $ php script/generate controller [controller_name] [action] [action2]\n";
+echo "         $ php script/generate controller home index about contact\n";
+echo "       migration\n";
+echo "         $ php script/generate migration [migration_name]\n";
+echo "         $ php script/generate migration add_email_to_authors\n";
+echo "\n";
+echo "     Migrate / Rollback:\n";
+echo "       $ php script/database migrate\n";
+echo "       $ php script/database rollback [how many: optional, default 1]\n";
+echo "       $ php script/database rollback 2\n";
+echo "\n";
