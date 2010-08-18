@@ -29,12 +29,28 @@ class ModelBase {
 	}
 
 	public function set_property($key, $value){
-		$this->$key = $value;
 		$this->properties[$key]['value'] = $value;
 	}
 	
 	public function set_properties($params){
 		foreach ($params as $key => $value) $this->set_property($key, $value);
+	}
+	
+	public function __get($name){
+		if (in_array($name, array_keys($this->properties))){
+			// own column
+			return $this->properties[$name]['value'];
+		}	elseif (isset($this->belongs_to) && in_array($name, $this->belongs_to)){
+			// belongs to
+			$classname = Inflector::classify($name);
+			$column_name = $name . '_id';
+			return $classname::find($this->$column_name);
+		} elseif(isset($this->has_many) && in_array($name, $this->has_many)){
+			// has many
+			$classname = Inflector::classify($name);
+			return $classname::find_all_by(Inflector::singularize($name) . "_id");
+		}
+		return false;		
 	}
 	
 	public function save(){	
