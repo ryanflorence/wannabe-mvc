@@ -2,3 +2,4 @@ Options +FollowSymlinks
 RewriteEngine on
 RewriteRule ^([a-z]+)/([a-z]+)/([0-9]+)/?$ index.php?controller=$1&action=$2&id=$3
 RewriteRule ^([a-z]+)/([a-z]+)/?$ index.php?controller=$1&action=$2
+RewriteRule ^([a-z]+)/?$ index.php?controller=$1&action=index
