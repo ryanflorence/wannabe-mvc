@@ -54,7 +54,7 @@ function destroy_path($model){
 
 // other junk
 
-function form_field_for($key, $model){
+function form_field($key, $model){
 	$text     = array('int(11)', 'varchar(255)', 'timestamp');
 	$textarea = array('tinytext', 'text');
 	$hidden   = array('id');
@@ -79,7 +79,21 @@ function form_field_for($key, $model){
 		echo '<label><input type="radio" value="1" name="' . $name . '" ' . $active . '> active</label><br>' . "\n";
 		echo '<label><input type="radio" value="0" name="' . $name . '" ' . $deleted . '> inactive</label>';
 	}
+	echo "\n";
 }
+
+function belongs_to_select_field($model, $collection, $display){
+	$foreign_key = Inflector::singularize($collection[0]->table) . '_id';
+	$name = Inflector::singularize($model->table) . "[$foreign_key]";
+	echo "<select name=\"$name\">";
+	foreach($collection as $item){
+		$selected = ($model->$foreign_key == $item->id) ? 'selected': '';
+		$text = $item->$display;
+		echo "<option value=\"$item->id\"$selected>$text</option>\n";
+	}
+	echo "</select>\n";
+}
+
 
 function h($str){
 	echo htmlspecialchars($str);
