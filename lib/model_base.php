@@ -140,6 +140,7 @@ class ModelBase {
 		foreach($data as $k=>$v){
 			$arr['keys'][]   = $k;
 			$value = (isset($v['value'])) ? $v['value']: '';
+			if ($k == 'active' && $value == '') $value = 1;
 			$arr['values'][] = '"' . mysql_real_escape_string($value) . '"';
 		}
 		return $arr;

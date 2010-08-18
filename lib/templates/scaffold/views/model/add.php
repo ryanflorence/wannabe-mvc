@@ -6,4 +6,9 @@
 	<input type="submit" value="Create">
 </form>
 
+<p class="actions">
+	[ <a href="<?php echo "<?php" ?> echo $_SERVER['HTTP_REFERER'] ?>">« back</a> | 
+	<?php echo "<?php" ?> link_to('index', index_path('<?php echo $plural ?>')); ?> ]
+</p>
+
 <?php echo "<?php" ?> include 'app/views/layouts/_footer.php' ?>

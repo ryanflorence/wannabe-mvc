@@ -13,32 +13,26 @@ function link_to($text, $href, $attrs = '', $echo = true){
 }
 
 function add_path($model){
-	// send string reprenting plural model name
 	return get_path($model, 'add');
 }
 
 function create_path($model){
-	// send string reprenting plural model name
 	return get_path($model, 'create');
 }
 
 function index_path($model){
-	// send string reprenting plural model name
 	return get_path($model, 'index');
 }
 
 function deleted_path($model){
-	// send string reprenting plural model name
 	return get_path($model, 'deleted');
 }
 
 function show_path($model){
-	// send an instance of the model
 	return get_path($model->table, 'show', $model->id);
 }
 
 function edit_path($model){
-	// send an instance of the model
 	return get_path($model->table, 'edit', $model->id);
 }
 
@@ -47,39 +41,38 @@ function update_path($model){
 }
 
 function delete_path($model){
-	// send an instance of the model
 	return get_path($model->table, 'delete', $model->id);
 }
 
 function restore_path($model){
-	// send an instance of the model
 	return get_path($model->table, 'restore', $model->id);
 }
 
 function destroy_path($model){
-	// send an instance of the model
 	return get_path($model->table, 'destroy', $model->id);
 }
 
 // other junk
 
-function form_field_for($model, $key, $data){
+function form_field_for($key, $model){
 	$text     = array('int(11)', 'varchar(255)', 'timestamp');
 	$textarea = array('tinytext', 'text');
 	$hidden   = array('id');
 	$bool     = array('int(1)');
-	$value = isset($data['value']) ? $data['value'] : '';
-	$name = $model . "[$key]";
+	$value    = (isset($model->$key)) ? $model->$key : '';
+	$name     = Inflector::singularize($model->table) . "[$key]";
+	$type     = $model->properties[$key]['Type'];
+	
 	if (in_array($key, $hidden)){
 		echo '<input type="hidden" name="' . $name . '" value="' . $value . '">'; return; 
 	}
-	if (in_array($data['Type'], $text)){
+	if (in_array($type, $text)){
 		echo '<input type="text" size="70" name="' . $name . '" value="' . $value . '">'; return; 
 	}
-	if (in_array($data['Type'], $textarea)){
+	if (in_array($type, $textarea)){
 		echo '<textarea rows="5" cols="40" name="' . $name . '">' . $value . '</textarea>'; return; 
 	}
-	if (in_array($data['Type'], $bool)){
+	if (in_array($type, $bool)){
 		$value   = ($value == '') ? '1' : $value; // new or existing record
 		$active  = ($value == '1') ? ' checked' : '';
 		$deleted = ($value == '0') ? ' checked' : '';
@@ -88,7 +81,7 @@ function form_field_for($model, $key, $data){
 	}
 }
 
-function echo_html($str){
+function h($str){
 	echo htmlspecialchars($str);
 }
 

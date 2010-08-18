@@ -46,7 +46,7 @@ h5,h6{margin-bottom :1.5em;font-weight :bold;font-size :1em;}
 h1 img,h2 img,h3 img,h4 img,h5 img,h6 img{margin :0;}
 h1,h2,h3,h4,h5,h6{clear:both;}
 /* Text elements -------------------------------------------------------------- */
-p{margin :0 0 1.5em;}
+p, form{margin :0 0 1.5em;}
 a{color :#105cb6;text-decoration :underline;}
 a:visited{color :#a8a8a8;}
 a:focus,a:hover,{color :#a8a8a8;}
