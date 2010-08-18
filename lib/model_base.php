@@ -22,24 +22,30 @@
 
 class ModelBase {
 
+	public $properties = array();
+
 	// creates new instance, sets properties
 	function __construct($params = array()) {
 		$this->properties = YAML::decode_file("db/schemas/$this->table.yml");
 		$this->set_properties($params);
 	}
-
-	public function set_property($key, $value){
-		$this->properties[$key]['value'] = $value;
-	}
 	
 	public function set_properties($params){
-		foreach ($params as $key => $value) $this->set_property($key, $value);
+		foreach ($params as $key => $value) $this->$key = $value;
+	}
+	
+	public function __set($name, $value){
+		if (in_array($name, array_keys($this->properties))){
+			// own column
+			$this->properties[$name]['value'] = $value;
+		}
+		// todo: add has_many, belongs_to, and habtm logic
 	}
 	
 	public function __get($name){
 		if (in_array($name, array_keys($this->properties))){
 			// own column
-			return $this->properties[$name]['value'];
+			return (isset($this->properties[$name]['value'])) ? $this->properties[$name]['value'] : false;
 		}	elseif (isset($this->belongs_to) && in_array($name, $this->belongs_to)){
 			// belongs to
 			$classname = Inflector::classify($name);
@@ -50,11 +56,12 @@ class ModelBase {
 			$classname = Inflector::classify($name);
 			return $classname::find_all_by(Inflector::singularize($name) . "_id");
 		}
+		// todo add habtm support
 		return false;		
 	}
 	
 	public function save(){	
-		return (isset($this->id)) ? $this->update() : $this->insert();
+		return ($this->id) ? $this->update() : $this->insert();
 	}
 	
 	public function insert(){
@@ -70,7 +77,7 @@ class ModelBase {
 		$values     = implode( ', ', $properties['values']);
 		$sql        = "INSERT INTO $this->table ($keys) VALUES ($values);";
 		if (self::run_query($sql)){
-			$this->set_property('id', mysql_insert_id());
+			$this->id = mysql_insert_id();
 			return true;
 		} else {
 			return false;
@@ -78,6 +85,7 @@ class ModelBase {
 	}
 	
 	public function update(){
+		$this->updated_at = date("Y-m-d H:i:s");
 		$properties = $this->properties;
 		$id = $properties['id']['value'];
 		function walk_data(&$value, $key){
@@ -95,12 +103,12 @@ class ModelBase {
 	}
 
 	public function delete(){
-		$this->set_property('active', '0');
+		$this->active = '0';
 		return $this->update();
 	}
 	
 	public function restore(){
-		$this->set_property('active', '1');
+		$this->active = '1';
 		return $this->update();
 	}
 		
