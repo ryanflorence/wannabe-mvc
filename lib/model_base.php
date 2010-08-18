@@ -54,7 +54,7 @@ class ModelBase {
 		} elseif(isset($this->has_many) && in_array($name, $this->has_many)){
 			// has many
 			$classname = Inflector::classify($name);
-			return $classname::find_all_by(Inflector::singularize($name) . "_id");
+			return $classname::find_all_by(Inflector::singularize($this->table) . "_id", $this->id);
 		}
 		// todo add habtm support
 		return false;		
