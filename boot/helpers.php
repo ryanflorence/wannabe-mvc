@@ -59,7 +59,7 @@ function form_field_for($key, $model){
 	$textarea = array('tinytext', 'text');
 	$hidden   = array('id');
 	$bool     = array('int(1)');
-	$value    = (isset($model->$key)) ? $model->$key : '';
+	$value    = $model->$key;
 	$name     = Inflector::singularize($model->table) . "[$key]";
 	$type     = $model->properties[$key]['Type'];
 	
