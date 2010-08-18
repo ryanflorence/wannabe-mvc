@@ -15,6 +15,17 @@ class Migration {
 		return (DatabaseTransaction::run_query($sql)) ? "Created table : $table\n": false;
 	}
 	
+	public static function create_linking_table($table1, $table2){
+		$table = $table1.'_'.$table2;
+		$col1  = Inflector::singularize($table1) . '_id';
+		$col2  = Inflector::singularize($table2) . '_id';
+		$sql = "CREATE TABLE `$table` (
+		  `$col1` int(11) NOT NULL,
+		  `$col2` int(11) NOT NULL
+		) ENGINE=MyISAM DEFAULT CHARSET=latin1;";
+		return (DatabaseTransaction::run_query($sql)) ? "Created linking table: $table\n": false;
+	}
+	
 	public static function drop_table($table){
 		$sql = "DROP TABLE IF EXISTS `$table`;";
 		return (DatabaseTransaction::run_query($sql)) ? "Dropped table : $table\n": false;
