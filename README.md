@@ -1,20 +1,22 @@
 Wannabe MVC
 ===========
 
-Wannabe MVC is a different kind of MVC--it's a wannabe, really.  It was born out of a love for frameworks like [Ruby on Rails](http://rubyonrails.org/), [Lithium](http://lithify.me/), and [Symfony](http://www.symfony-project.org/) but isn't robust. It Doesn't really have an ORM or PDO or any other sweet acronym. It only works with MySQL. No magical `has_many` relational stuff (but it's super easy to do yourself.)
+Wannabe MVC is a different kind of MVC--it's a wannabe, really.  It was born out of a love for frameworks like [Ruby on Rails](http://rubyonrails.org/), [Lithium](http://lithify.me/), and [Symfony](http://www.symfony-project.org/) but isn't robust. It Doesn't really have an ORM or PDO or any other sweet acronym. It only works with MySQL.
 
 What it _does_ have is some basic functionality I just can't live without.
 
-I built this in 3 days because I wanted:
+I built this (quickly) because I wanted:
 
 1. Model instances returned from the database, not just an array of values (looking at you CakePHP)
 2. A command line interface, especially scaffolding
-3. Simple database migrations
-4. To see if I actually know PHP
-5. Prove to some friends I can build a satisfactory API
-6. Ability to run on CentOS 4 (?!) and PHP 5.1 (!?)
+3. Database migrations (dumps are for the birds)
+4. Support for `has_many` and `belongs_to` magic (`habtm` eventually)
 
-Plenty of PHP frameworks met items 1-3, using anybody elses framework doesn't really help 4 and 5, and none of them met 6 (nor should they.)  This framework sort of just showed up in textmate as I worked on a certain project. Whenever I have to work on out-dated servers, expect updates.
+And Needed:
+
+5. The ability to run on our work server: CentOS 4 (?!) and PHP 5.1 (!?)
+
+Plenty of PHP frameworks met my wants none of them met 6 (nor should they.)  This framework sort of just showed up in textmate as I worked on a certain project. Whenever I have to work on out-dated servers, expect updates.
 
 In a nutshell, it's a great little tool for small sites that require a database on servers that can't be upgraded.
 
@@ -46,13 +48,12 @@ __Configure__
 1. Open `config/database.yml` and point it to a database (may have to create it first)
 2. Point your web server to `public`
 
-Usage
-=====
 
 Command Line Interface
-----------------------
+======================
 
-### Generators:
+Generators:
+-----------
 
 __scaffold__
 
@@ -69,7 +70,8 @@ __migration__
     $ php script/generate migration [migration_name]
     $ php script/generate migration add_email_to_authors
 
-### Migrate / Rollback Database:
+Migrate / Rollback Database:
+----------------------------
 
 __migrate__
 
@@ -81,4 +83,48 @@ Rollback takes a number of migrations to roll back, it defaults to 1.
 
     $ php script/database rollback
     $ php script/database rollback 2
+
+
+Models, Views, Controllers
+==========================
+
+Models
+------
+
+		// Query the DB
+		Article::find('all');
+		Article::find(5);
+		User::find_all_by('email', 'rpflorence@example.com');
+
+
+		// Has Many
+		class Category extends ModelBase {
+			
+			public $has_many = array('articles');
+			
+		}
+		
+		// Belongs To
+		class Article extends ModelBase {
+			
+			public $belongs_to = array('category', 'user');
+			
+		}
+
+Controller
+----------
+
+    class ArticleController extends ControllerBase {
+		
+      public function awesome(){
+        $this->sauce = 'Awesome';
+      }
+    
+    }
+
+View
+----
+
+    <!-- http://example.com/aticles/awesome
+    <h1><?php echo $this->sauce ?></h1>
 
