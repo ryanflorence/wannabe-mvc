@@ -16,7 +16,7 @@ And Needed:
 
 5. The ability to run on our work server: CentOS 4 (?!) and PHP 5.1 (!?)
 
-Plenty of PHP frameworks met my wants none of them met my need (nor should they.)  This framework sort of just showed up in textmate as I worked on a certain project. Whenever I have to work on out-dated servers, expect updates.
+Plenty of PHP frameworks met my wants but none of them met my need (nor should they.)  This framework sort of just showed up in textmate as I worked on a certain project. Whenever I have to work on out-dated servers, expect updates.
 
 In a nutshell, it's a great little tool for small sites that require a database on servers that can't be upgraded.
 
