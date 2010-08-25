@@ -15,7 +15,8 @@ if (!$total){
 foreach($migrations as $migration){
 	if ($migration['timestamp'] > $old_version){
 		require_once($migration['file']);
-		$result = $migration['classname']::up();
+		$result = call_user_func(array($migration['classname'], 'up'));
+		//$result = $migration['classname']::up();
 		if ($result){
 			echo "# " . $result;
 			$version = $migration['timestamp'];

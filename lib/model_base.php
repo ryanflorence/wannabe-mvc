@@ -3,27 +3,18 @@
  * 
  *
  * @author Ryan Florence
- * @version $Id$
- * @copyright __MyCompanyName__, 13 August, 2010
- * @package default
  **/
-
-/**
- * Define DocBlock
- **/
-
 
 /**
  * Base class for all Models, contains basic interactions with MySQL.
  *
- * @package default
  * @author Ryan Florence
  **/
 
 class ModelBase {
 
 	public $properties = array();
-
+	public $error;
 	// creates new instance, sets properties
 	function __construct($params = array()) {
 		$this->properties = YAML::decode_file("db/schemas/$this->table.yml");
@@ -50,17 +41,19 @@ class ModelBase {
 			// belongs to
 			$classname = Inflector::classify($name);
 			$column_name = $name . '_id';
-			return $classname::find($this->$column_name);
+			return call_user_func_array(array($classname, 'find'), array($this->column_name));
+			//return $classname::find($this->$column_name);
 		} elseif(isset($this->has_many) && in_array($name, $this->has_many)){
 			// has many
 			$classname = Inflector::classify($name);
-			return $classname::find_all_by(Inflector::singularize($this->table) . "_id", $this->id);
+			return call_user_func_array(array($classname, 'find_all_by'), array(Inflector::singularize($this->table) . "_id", $this->id));
+			//return $classname::find_all_by(Inflector::singularize($this->table) . "_id", $this->id);
 		}
 		// todo add habtm support
 		return false;		
 	}
 	
-	public function save(){	
+	public function save(){
 		return ($this->id) ? $this->update() : $this->insert();
 	}
 	
@@ -80,6 +73,8 @@ class ModelBase {
 			$this->id = mysql_insert_id();
 			return true;
 		} else {
+			error_log(mysql_error());
+			$this->error = mysql_error();
 			return false;
 		};
 	}
@@ -124,7 +119,7 @@ class ModelBase {
 	}
 	
 	public static function find_all_by($table, $field, $value, $extra = ''){
-		return self::find_all($table, "WHERE `$field` = $value $extra");
+		return self::find_all($table, "WHERE `$field` = '$value' $extra");
 	}
 	
 	public static function find_first($table){
@@ -150,7 +145,7 @@ class ModelBase {
 		if($result) {
 			return true;
 		} else {
-			self::log('Error', $sql, mysql_error());
+			//self::log('Error', $sql, mysql_error());
 			return false;
 		}
 	}
