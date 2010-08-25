@@ -6,7 +6,8 @@ class Migration {
 		'text'    => 'text',
 		'int'     => 'int(11)',
 		'date'    => 'datetime',
-		'decimal' => 'decimal(8,2)'
+		'decimal' => 'decimal(8,2)',
+		'bool'    => 'boolean'
 	);
 
 	public static function create_table($table, $columns){
@@ -52,6 +53,10 @@ class Migration {
 	                                   
 	public static function change_column($colum){
 		return "Pretend like you changed a column\n";
+	}
+	
+	public static function run_query($sql){
+		return (DatabaseTransaction::run_query($sql)) ? "Query executed succesfully\n": false;
 	}
 	
 	
