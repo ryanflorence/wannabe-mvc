@@ -58,7 +58,7 @@ function form_field($key, $model){
 	$text     = array('int(11)', 'varchar(255)', 'timestamp');
 	$textarea = array('tinytext', 'text');
 	$hidden   = array('id');
-	$bool     = array('int(1)');
+	$bool     = array('int(1)', 'tinyint(1)');
 	$value    = $model->$key;
 	$name     = Inflector::singularize($model->table) . "[$key]";
 	$type     = $model->properties[$key]['Type'];
@@ -76,8 +76,8 @@ function form_field($key, $model){
 		$value   = ($value == '') ? '1' : $value; // new or existing record
 		$active  = ($value == '1') ? ' checked' : '';
 		$deleted = ($value == '0') ? ' checked' : '';
-		echo '<label><input type="radio" value="1" name="' . $name . '" ' . $active . '> active</label><br>' . "\n";
-		echo '<label><input type="radio" value="0" name="' . $name . '" ' . $deleted . '> inactive</label>';
+		echo '<label><input type="radio" value="1" name="' . $name . '" ' . $active . '> true</label><br>' . "\n";
+		echo '<label><input type="radio" value="0" name="' . $name . '" ' . $deleted . '> false</label>';
 	}
 	echo "\n";
 }
